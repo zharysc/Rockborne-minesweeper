@@ -7,6 +7,7 @@ import tkinter
 import numpy as np
 
 ## ==== Minesweeper backend ==== ##
+""" This .py file contains the backend logic for the minesweeper game"""
 
 class Minesweeper:
     def __init__(self,n,num_mines=10):
@@ -104,10 +105,10 @@ class Minesweeper:
 # Modify values 
 
 
-# function to update board
+"""# function to update board
 board_size = 10
 game = Minesweeper(board_size, num_mines=12)
 
 # Print both boards
 game.print_mine_board()
-game.print_player_view()
+game.print_player_view()"""
