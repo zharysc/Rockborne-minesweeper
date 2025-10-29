@@ -59,6 +59,9 @@ class Minesweeper:
     def _get_neighbours(self,r,c):
         """ Returns a list for all 8 neighbours of a cell"""
         n = self.n
+
+        display_arr = np.full((n, n), 'H', dtype=object)
+
         neighbours = []
         for i in range(max(0,r-1),min(n,r+2)):
             for j in range(max(0,c-1),min(n,c+2)):
@@ -80,7 +83,36 @@ class Minesweeper:
                         # If cell has a bomb
                         if self.board[nr,nc] == -1:
                             mine_count+=1
-                        self.board[r,c] = mine_count
+                    self.board[r,c] = mine_count
+
+    def reveal_cell(self,r,c):
+        """ This cell handles what happens after a player choses a cell,
+         and it updates self.view of the player"""
+        n = self.n
+
+        # Handling out of bounds cases
+        if not (0 <= r < n and 0 <= c < n):
+            return
+        # Handling revealed or flagged
+        if self.view[r,c]!=0:
+            return
+        # Updating the cell view state
+        self.view[r,c]=1
+        cell_value = self.board[r,c]
+
+        # Game over occurance
+        if cell_value == -1:
+            self.game_over = True
+            return
+        
+        # Handling when there are no bombs surrounding
+        """ In this case, you recursively reveal all neighbours till a cell
+        with a number is revealed"""
+        if cell_value ==0:
+            for nr,nc in self._get_neighbours(r,c):
+                self.reveal_cell(nr,nc) # Here the function will be calling itself
+
+
     
     
 
@@ -89,26 +121,57 @@ class Minesweeper:
         print("(-1 = Mine, 0-8 = Surrounding Mine Count)")
         print(self.board)
 
-    def print_player_view(self):
+    ## === This is what the player is seeing
+    def player_view(self):
+        """ This function holds the current state of the
+        player view of the game"""
+        n = self.n
         display_arr = np.full((self.n, self.n), 'H', dtype=object)
+
+
+        # Looping through every cell
+        for r in range(n):
+            for c in range(n):
+
+                # Check if cell is revealed - show value on player view
+                if self.view[r,c] == 1:
+                    value = self.board[r, c]
+                    display_arr[r, c] = str(value)
+                    
+        print(display_arr)
+        return display_arr
+
+
+
+
         
         # This function currently just shows all 'H' since no cells have been revealed (view is all 0s)
-        print(f"\n👀 **Player View ({self.n}x{self.n})**:")
-        print("('H' = Hidden Cell)")
+        print(f"\n **Player View ({self.n}x{self.n})**:")
+        print("'H' = Hidden Cell")
         print(display_arr)
 
 
 
+## === Debugging area == ##
+if __name__ == "__main__":
+    board_size = 10
+    game = Minesweeper(board_size, num_mines=12)
+
+# ========= Simulation of a game
+
+    print("#== Initial State ==#")
+    game.print_mine_board()
+    game.player_view()
+
+    # Corner click simulation
+    print("*Corner click*")
+    game.reveal_cell(0, 0)
+    game.player_view()
+
+    # Center click 
+    print("*Center click*")
+    game.reveal_cell(3,3)
+    game.player_view()
+    
 
 
-# == Minesweeper methods == #
-# Modify values 
-
-
-"""# function to update board
-board_size = 10
-game = Minesweeper(board_size, num_mines=12)
-
-# Print both boards
-game.print_mine_board()
-game.print_player_view()"""

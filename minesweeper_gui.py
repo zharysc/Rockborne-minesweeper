@@ -33,10 +33,53 @@ class MinesweeperGUI(tk.Tk):
                 )
                 button.grid(row=r,column=c)
                 self.buttons[(r,c)] = button
-                
+
 # ==== Action when a cell is clicked
-    # def click_cell(self,r,c):
-        # pending... need to build function to reveal cell
+    def click_cell(self,r,c):
+        # pending... need to build function to reveal cell !!!!!!!!!!!!!!!!!!!!!!!!!
+        self.game.reveal_cell(r,c)
+        # Update GUI
+        self.update_gui()
+        # Outputs new player view in the terminal -- for debugging purposes
+        self.game.player_view()
+        # When clicked - disable button and keep pressed
+        button = self.buttons[(r,c)]
+        button.config(
+            state=tk.DISABLED,
+            relief=tk.SUNKEN,
+            borderwidth=1
+        )
+        
+    def update_gui(self):
+        """ This function updates the interface after any player actions
+        Buttons have 3 different state
+        Hidden
+        Revealed
+        Flagged
+        Connected to self.game.view and self.game.board
+        """
+
+        for r in range(self.game.n):
+            for c in range(self.game.n):
+                button = self.buttons[(r,c)]
+
+                view_state = self.game.view[r, c]
+                board_content = self.game.board[r, c]
+
+
+                if view_state ==1:
+                    button.config(
+                        state=tk.DISABLED,
+                        relief=tk.SUNKEN,
+                        borderwidth=1,
+                        text=""
+                    )           
+
+
+        
+            
+
+
 
 if __name__ == "__main__":
     app = MinesweeperGUI(n=8, num_mines=10)
