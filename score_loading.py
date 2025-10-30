@@ -29,10 +29,13 @@ def load_scores(top_n=3):
                     continue
                 name = row.get("player_name", "")
                 # Formatting
-                records.append(f"{name}-{s}")
+                records.append((name, s))
     # sort descending by score
     records.sort(key=lambda ns: ns[1], reverse=True)
-    return records[:top_n]
+
+    # Formatted here for proper display
+    formatted = [f"{name}-{score}" for (name, score) in records[:top_n]]
+    return formatted
 
 def save_scores(name, score):
     file_exists = os.path.exists(scores_csv)
