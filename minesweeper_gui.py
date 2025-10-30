@@ -75,12 +75,14 @@ class MinesweeperGUI(tk.Tk):
                 button = tk.Button(
                     self.frame_board,
                     image=self.images.get('hidden'),
-                    width=35,
-                    height=35,
-                    
+                    width=40,
+                    height=40,
+                    relief="solid",       
+                    bg="#f5f5dc",          
+                    activebackground="#eae6d5",  
+                    highlightthickness=0,
                     padx=0,
                     pady=0,
-                    borderwidth=1,
                     command = lambda r=r,c=c:self.click_cell(r,c) # command executed when button is pressed
                 )
                 button.grid(row=r,column=c)
@@ -127,6 +129,7 @@ class MinesweeperGUI(tk.Tk):
             state=tk.DISABLED,
             relief=tk.FLAT,
             borderwidth=0,
+            highlightthickness=0
         )
 
     def game_status(self):
@@ -170,7 +173,6 @@ class MinesweeperGUI(tk.Tk):
                 view_state = self.game.view[r, c]
                 board_content = self.game.board[r, c]
 
-
                 if view_state ==1:
                     button.config(
                         state=tk.DISABLED,
@@ -178,14 +180,16 @@ class MinesweeperGUI(tk.Tk):
                         borderwidth=0,
                         text=""
                     )
+                
                     # == Assign the Image based on number on board
 
                     #Mine
                     if board_content == -1:
-                        button.config(image=self.images['mine'],bg='red')
+                        button.config(image=self.images['mine'],bg="#fa562d",)
                     # Numbers
                     elif 1<=board_content<=8:
                         button.config(image=self.images[board_content])
+
 
     
         self.game_status()
