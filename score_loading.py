@@ -1,44 +1,31 @@
-''' This script includes functions involving the loading and storing
-of scores and players'''
+
+# ========= score_loading.py ============= # 
+"""
+ This script includes functions involving the loading and storing
+of scores and players
+
+To keep a record of score history we will be using a file called 
+    scores_history.csv.
+"""
 ## === Imports
 import os
 import csv
 import datetime
 
-## ==== Score History ==== ##
-""" To keep a record of score history we will be using a file called 
-    scores_history.csv.
-    This will keep the top 3 scores on the local device and will include:
-    Name
-    Score
-"""
+## ==========================================
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 scores_csv = os.path.join(BASE_DIR, "scores_history.csv")
 
 def load_scores(top_n=3):
+    """
+    function loads scores_csv, and will take the top 3 score on this local device
 
-    records = []
-    if os.path.exists(scores_csv):
-        print()
-        with open(scores_csv, newline="", encoding="utf‑8") as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                try:
-                    s = int(row["score"])
-                except (KeyError, ValueError):
-                    continue
-                name = row.get("player_name", "")
-                # Formatting
-                records.append((name, s))
-    # sort descending by score
-    records.sort(key=lambda ns: ns[1], reverse=True)
-
-    # Formatted here for proper display
-    formatted = [f"{name}-{score}" for (name, score) in records[:top_n]]
-    return formatted
-
-def load_scores(top_n=3):
-
+    Parameters:
+        top_n - int, N number of top scores we want to grab
+    Returns:
+        formatted - array, list of the top scorers and scores, in appropriate formatting
+    """
     records = []
     try:
         with open(scores_csv, newline="", encoding="utf‑8") as f:
@@ -67,6 +54,14 @@ def load_scores(top_n=3):
 
 
 def save_scores(name, score):
+    """
+    When called saves the name of player and score
+    Parameters:
+        name - str, name of player
+        score - int, score of player
+    Returns:
+    
+    """
     try:
         file_exists = os.path.exists(scores_csv)
         with open(scores_csv, "a", newline="", encoding="utf‑8") as f:
