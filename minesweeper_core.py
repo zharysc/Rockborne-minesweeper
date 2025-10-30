@@ -3,8 +3,18 @@
 # Stats
 # Error handling
 # Logic
-import tkinter
+
+# ==== TODO:
+# Add local save of game history
+# Add game score
+# === End game events
+# Add lose game event
+# Add win game events
+
 import numpy as np
+
+
+
 
 ## ==== Minesweeper backend ==== ##
 """ This .py file contains the backend logic for the minesweeper game"""
@@ -13,8 +23,7 @@ class Minesweeper:
     def __init__(self,n,num_mines=10):
         self.n = n
         self.num_mines = num_mines
-        self.game_over = False
-
+        self.score = 0
         # Board with all the known locations of the board
         self.board = self._make_board()
         # == Apply numbers to cells
@@ -22,6 +31,15 @@ class Minesweeper:
 
         # Board that 
         self.view = np.zeros((n,n),dtype=int)
+
+        # State of the game
+        self.game_active = True
+        self.count_safe_cells = (n*n)-self.num_mines
+        self.revealed_safe = 0
+
+        # Assumption - playing is winning till they uncover a bomb
+        self.win = True
+
 
 
 
@@ -93,28 +111,34 @@ class Minesweeper:
         # Handling out of bounds cases
         if not (0 <= r < n and 0 <= c < n):
             return
-        # Handling revealed or flagged
-        if self.view[r,c]!=0:
-            return
-        # Updating the cell view state
-        self.view[r,c]=1
+        # Handling revealed
         cell_value = self.board[r,c]
+        self.view[r,c]=1
 
-        # Game over occurance
+        if self.view[r,c]!=0:
+            self.score += 20
+            self.revealed_safe += 1
+
+        #Game over - lose situation
         if cell_value == -1:
-            self.game_over = True
-            return
+            self.game_active = False
+            self.win = False
+            return 
+        
+        # Game over - win situation
+        if self.revealed_safe == self.count_safe_cells:
+            self.game_active = False
+            # Bonus score
+            self.score +=1000 # TODO: add timer => shorter time it takes to finish = larger multiplyer score
         
         # Handling when there are no bombs surrounding
         """ In this case, you recursively reveal all neighbours till a cell
         with a number is revealed"""
         if cell_value ==0:
             for nr,nc in self._get_neighbours(r,c):
-                self.reveal_cell(nr,nc) # Here the function will be calling itself
+                if self.view[nr, nc] == 0:
+                    self.reveal_cell(nr,nc) # Here the function will be calling itself
 
-
-    
-    
 
     def print_mine_board(self):
         print(f"\n **Full Mine Board ({self.n}x{self.n})**:")
@@ -141,21 +165,12 @@ class Minesweeper:
         print(display_arr)
         return display_arr
 
-
-
-
-        
-        # This function currently just shows all 'H' since no cells have been revealed (view is all 0s)
-        print(f"\n **Player View ({self.n}x{self.n})**:")
-        print("'H' = Hidden Cell")
-        print(display_arr)
-
-
-
 ## === Debugging area == ##
 if __name__ == "__main__":
     board_size = 10
     game = Minesweeper(board_size, num_mines=12)
+
+
 
 # ========= Simulation of a game
 
