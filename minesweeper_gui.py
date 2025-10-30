@@ -19,14 +19,36 @@ class MinesweeperGUI(tk.Tk):
         self.load_images()
         print(self.images.keys())
 
-        # Creating an instance of the backend
-        self.game = Minesweeper(n,num_mines)
-        self.buttons = {}
-
+        
         # == Framing of game, score and player name ========================
         self.frame_scores = tk.Frame(self)                             
         self.frame_scores.grid(row=0, column=0, sticky="ew")
 
+        # ==== Picking difficulty 
+        self.label_difficulty = tk.Label(self.frame_scores, text="Difficulty:", font=('Arial',12))
+        self.label_difficulty.pack(side="left", padx=(10,0))
+
+        self.difficulty_var = tk.StringVar(value="Medium")
+        difficulty_options = ["Easy", "Medium", "Hard","Insane"]
+        self.option_difficulty = tk.OptionMenu(self.frame_scores, self.difficulty_var, *difficulty_options)
+        self.option_difficulty.pack(side="left", padx=(0,10))
+
+        sel = self.difficulty_var.get()
+        if sel == "Easy":
+            n, num_mines = 8, 8
+        elif sel == "Medium":
+            n, num_mines = 10, 12
+        elif sel == "Hard":
+            n, num_mines = 12, 20
+        else:  # Insane
+            n, num_mines = 20, 40
+
+        # Create a Start button which will read the difficulty and initialize the board
+        self.btn_start = tk.Button(self.frame_scores, text="Start Game", command=self.start_game)
+        self.btn_start.pack(side="left", padx=(0,10))
+
+        # Creating an instance of the backend
+      
         self.frame_board = tk.Frame(self)                                
         self.frame_board.grid(row=1, column=0) 
 
@@ -49,8 +71,30 @@ class MinesweeperGUI(tk.Tk):
                                    font=('Arial', 10))                         
         self.top3_label.pack(side="right", padx=10) 
 
-        self.create_widgets()
+        # self.create_widgets()
         self.update_top3_display()
+    
+    def start_game(self):
+        # Determine difficulty and set parameters
+        sel = self.difficulty_var.get()
+        if sel == "Easy":
+            n, num_mines = 8, 8
+        elif sel == "Medium":
+            n, num_mines = 10, 12
+        elif sel == "Hard":
+            n, num_mines = 12, 20
+        else:  # Insane
+            n, num_mines = 15, 40
+
+        # Now instantiate your backend game
+        self.game = Minesweeper(n, num_mines)
+        self.buttons = {}
+        # Clear anything in frame_board (if previous game)
+        for widget in self.frame_board.winfo_children():
+            widget.destroy()
+
+        # Create the board buttons
+        self.create_widgets() 
 
     # === Top scoring displaying
     def update_top3_display(self):
