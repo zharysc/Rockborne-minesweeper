@@ -23,7 +23,7 @@ minesweeper_main.py: Main file to be run containing only the main() function.
 * Easy - 64 tiles, 10 mines 
 * Medium - 100 tiles, 20 mines
 * Hard - 144 tiles , 30 mines
-* Insane - 225 tiles - 45 mines
+* Insane - 225 tiles - 45 mines -- 
 
 ### How to play:
 1. Click a tile to uncover it - aim is to uncover as many safe tiles as possible
