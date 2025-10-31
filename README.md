@@ -9,14 +9,8 @@ Minesweeper v1, contains the basic logic of the game. This project was written i
 minesweeper_main.py: Main file to be run containing only the main() function.
 - score_loading.py: This file contains functions relating to the loading and writing of the score history stored in scores_history.csv.
 ## Getting Started
-### Dependencies
-Prerequisites:
-    1. Imports
-        - numpy
-        - os
-        - csv
-        - datetime
-        - tkinter
+### Prerequisites - Imports:
+* numpy, os, csv, datetime,tkinter
 
 ### Executing the program - playing the game
 1. Right click on minesweeper_main.py and run with Python
@@ -26,10 +20,10 @@ Prerequisites:
 
 ## General game information
 ### Difficulty levels:
-1. Easy - 64 tiles, 10 mines 
-2. Medium - 100 tiles, 20 mines
-3. Hard - 144 tiles , 30 mines
-4. Insane - 225 tiles - 45 mines
+* Easy - 64 tiles, 10 mines 
+* Medium - 100 tiles, 20 mines
+* Hard - 144 tiles , 30 mines
+* Insane - 225 tiles - 45 mines
 
 ### How to play:
 1. Click a tile to uncover it - aim is to uncover as many safe tiles as possible

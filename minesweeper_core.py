@@ -3,15 +3,11 @@
 This .py file contains the backend logic for the minesweeper game
 
 """
-## == Imports
+## == Imports ==
 import numpy as np
 
-##================================================================
-# Poetry and not environment
-# Mention packages on README
-# Stats
-# Error handling
-# Logic
+##=============================================================== ##
+
 
 class Minesweeper:
     """
@@ -62,7 +58,8 @@ class Minesweeper:
         all_indices = np.arange(n*n)
 
         # Randomly placing the mines
-        mine_indices = np.random.choice(all_indices, size = self.num_mines, replace = False)
+        mine_indices = np.random.choice(all_indices, 
+                                        size = self.num_mines, replace = False)
 
         # Multi-dimensional indices
         mine_locations = np.unravel_index(mine_indices, board.shape)
@@ -74,14 +71,14 @@ class Minesweeper:
 
     def get_neighbours(self,r,c):
         """
-        Checks the neighbours of a specific tile, to see which ones
-        have mines in them
+        Gets the neighbours of cell r,c
         Parameters:
             self - all attriutes of the class
             r - index, row of tile
             c - index, column of tile
         Returns:
-            neighbours - array, list of the locations of neighbours that have mines
+            neighbours - array, list of the locations of neighbours 
+                    that have mines
         """
         n = self.n
 
@@ -128,10 +125,12 @@ class Minesweeper:
         # Handling out of bounds cases
         if not (0 <= r < n and 0 <= c < n):
             return
+        
         # Handling revealed
         cell_value = self.board[r,c]
         self.view[r,c]=1
 
+        # Safe tiles
         if self.view[r,c]!=0:
             self.score += 20
             self.revealed_safe += 1
@@ -151,7 +150,6 @@ class Minesweeper:
         # Handling when there are no bombs surrounding
         """ In this case, you recursively reveal all neighbours till a cell
         with a number is revealed"""
-        
         if cell_value ==0:
             for nr,nc in self.get_neighbours(r,c):
                 if self.view[nr, nc] == 0:

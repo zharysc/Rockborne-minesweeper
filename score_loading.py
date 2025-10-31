@@ -1,5 +1,5 @@
 
-# ========= score_loading.py ============= # 
+## ==================== score_loading.py ======================== ## 
 """
  This script includes functions involving the loading and storing
 of scores and players
@@ -12,10 +12,12 @@ import os
 import csv
 import datetime
 
-## ==========================================
-
+# == Global variables
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 scores_csv = os.path.join(BASE_DIR, "scores_history.csv")
+
+##=============================================================== ##
+
 
 def load_scores(top_n=3):
     """
@@ -78,6 +80,7 @@ def save_scores(name, score):
     except Exception as e:
         # Catch all other exceptions
         print(f"Unexpected error when saving scores: {e}")
+
 
 ## ======= load_scores debugging
 if __name__ == "__main__":
