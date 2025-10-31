@@ -23,7 +23,7 @@ minesweeper_main.py: Main file to be run containing only the main() function.
 * Easy - 64 tiles, 10 mines 
 * Medium - 100 tiles, 20 mines
 * Hard - 144 tiles , 30 mines
-* Insane - 225 tiles - 45 mines -- 
+* Insane - 225 tiles - 45 mines
 
 ### How to play:
 1. Click a tile to uncover it - aim is to uncover as many safe tiles as possible
@@ -35,5 +35,5 @@ HAVE FUN :>
 
 ## Acknowledgments
 * Images within the game taken from 
-    [Frepik] (<a href="https://www.flaticon.com/free-icons/bomb" title="bomb icons">Bomb icons created by Freepik - Flaticon</a>)
-    [IconsBox](<a href="https://www.flaticon.com/free-icons/IconsBox - Flaticon</a>)
+    1. [Frepik] (<a href="https://www.flaticon.com/free-icons/bomb" title="bomb icons">Bomb icons created by Freepik - Flaticon</a>)
+    2. [IconsBox](<a href="https://www.flaticon.com/free-icons/IconsBox - Flaticon</a>)
