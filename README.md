@@ -35,5 +35,5 @@ HAVE FUN :>
 
 ## Acknowledgments
 * Images within the game taken from 
-    1. [Frepik] (<a href="https://www.flaticon.com/free-icons/bomb" title="bomb icons">Bomb icons created by Freepik - Flaticon</a>)
-    2. [IconsBox](<a href="https://www.flaticon.com/free-icons/IconsBox - Flaticon</a>)
+    1. [Frepik] (<a href="https://www.flaticon.com/free-icons/bomb" title="Mine icons">Mine icons created by Freepik - Flaticon</a>)
+    2. [IconsBox] (<a href="https://www.flaticon.com/free-icons/IconsBox" title="Number icons">Number icons created by IconsBox - Flaticon</a>)
