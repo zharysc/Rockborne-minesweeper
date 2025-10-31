@@ -1,7 +1,7 @@
 # Zharys' Minesweeper v1
 As part of Rockborne's Python project, we have been tasked with 
 creating a game. This project involves the recreation of the classic minesweeper game. Hope you enjoy!
-
+GitHub link: https://github.com/zharysc/Rockborne-minesweeper.git
 ## Description
 Minesweeper v1, contains the basic logic of the game. This project was written in different .py scripts, a brief description of each being shown below:
 - minesweeper_core.py: containing game logic to follow the rules of the game
